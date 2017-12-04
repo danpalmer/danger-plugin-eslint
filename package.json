@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/danpalmer/danger-plugin-eslint#readme",
   "keywords": ["danger", "danger-plugin", "eslint"],
-  "version": "0.0.0-development",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "scripts": {
