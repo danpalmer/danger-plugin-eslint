@@ -3,11 +3,8 @@ import eslint from "./index"
 declare const global: any
 
 const mockFileContents = (contents: string) => {
-  return (path: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      return resolve(contents)
-    }
-  }
+  const asyncContents: Promise<string> = new Promise((resolve, reject) => resolve(contents))
+  return async (path: string): Promise<string> => asyncContents
 }
 
 const defaultConfig = {
@@ -59,14 +56,16 @@ describe("eslint()", () => {
   it("calls fail for each eslint violation", async () => {
     global.danger = {
       github: {
-        pr: {  title: "Test" },
+        pr: { title: "Test" },
         utils: {
-          fileContents: mockFileContents(`
+          fileContents: mockFileContents(
+            `
           var foo = 1 + 1;
           console.log(foo);
-        `.trim()),
+        `.trim()
+          ),
         },
-       },
+      },
       git: { created_files: ["foo.js"], modified_files: [] },
     }
 
