@@ -23,7 +23,7 @@ async function lintFile(linter, config, path) {
 
   report.results[0].messages.map(msg => {
     if (msg.fatal) {
-      fail(`Fatal error linting {path} with eslint.`)
+      fail(`Fatal error linting ${path} with eslint.`)
       return
     }
 
