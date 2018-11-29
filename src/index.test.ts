@@ -72,7 +72,7 @@ describe("eslint()", () => {
     await eslint(defaultConfig)
 
     expect(global.fail).toHaveBeenCalledTimes(2)
-    expect(global.fail).toHaveBeenLastCalledWith("foo.js line 2 – 'console' is not defined. (no-undef)")
+    expect(global.fail).toHaveBeenLastCalledWith("foo.js line 2 – 'console' is not defined. (no-undef)", "foo.js", 2)
   })
 
   it("uses the provided eslint config", async () => {

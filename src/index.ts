@@ -21,14 +21,16 @@ async function lintFile(linter, config, path) {
   const contents = await danger.github.utils.fileContents(path)
   const report = linter.executeOnText(contents, path)
 
-  report.results[0].messages.map(msg => {
-    if (msg.fatal) {
-      fail(`Fatal error linting ${path} with eslint.`)
-      return
-    }
+  if (report.results.length !== 0) {
+    report.results[0].messages.map(msg => {
+      if (msg.fatal) {
+        fail(`Fatal error linting ${path} with eslint.`)
+        return
+      }
 
-    const fn = { 1: warn, 2: fail }[msg.severity]
+      const fn = { 1: warn, 2: fail }[msg.severity]
 
-    fn(`${path} line ${msg.line} – ${msg.message} (${msg.ruleId})`)
-  })
+      fn(`${path} line ${msg.line} – ${msg.message} (${msg.ruleId})`, path, msg.line)
+    })
+  }
 }
