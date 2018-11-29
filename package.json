@@ -1,5 +1,5 @@
 {
-  "name": "danger-plugin-eslint",
+  "name": "@seadub/danger-plugin-eslint",
   "description": "Eslint your code with Danger",
   "author": {
     "name": "Dan Palmer",
