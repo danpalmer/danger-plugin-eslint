@@ -8,12 +8,25 @@ export declare function markdown(message: string): void
 
 import { CLIEngine } from "eslint"
 
+interface Options {
+  baseConfig?: any
+  extensions?: string[]
+}
+
 /**
  * Eslint your code with Danger
  */
-export default async function eslint(config: any) {
-  const filesToLint = danger.git.created_files.concat(danger.git.modified_files)
-  const cli = new CLIEngine({ baseConfig: config })
+export default async function eslint(config: any, extensions?: string[]) {
+  const allFiles = danger.git.created_files.concat(danger.git.modified_files)
+  const options: Options = { baseConfig: config }
+  if (extensions) {
+    options.extensions = extensions
+  }
+  const cli = new CLIEngine(options)
+  // let eslint filter down to non-ignored, matching the extensions expected
+  const filesToLint = allFiles.filter(f => {
+    return !cli.isPathIgnored(f) && cli.options.extensions.some(ext => f.endsWith(ext))
+  })
   return Promise.all(filesToLint.map(f => lintFile(cli, config, f)))
 }
 

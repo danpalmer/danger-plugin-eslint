@@ -97,4 +97,45 @@ describe("eslint()", () => {
 
     expect(global.fail).not.toHaveBeenCalled()
   })
+
+  it("ignores files typically ignored by options/config", async () => {
+    global.danger = {
+      github: {
+        pr: { title: "Test" },
+        utils: {
+          fileContents: mockFileContents(`
+          var foo = 1 + 1;
+          console.log(foo);
+        `),
+        },
+      },
+      git: { created_files: ["foo.json"], modified_files: [] },
+    }
+
+    await eslint(defaultConfig)
+
+    expect(global.fail).not.toHaveBeenCalled()
+  })
+
+  it("optionally override extensions to lint", async () => {
+    global.danger = {
+      github: {
+        pr: { title: "Test" },
+        utils: {
+          fileContents: mockFileContents(
+            `
+          var foo = 1 + 1;
+          console.log(foo);
+        `.trim()
+          ),
+        },
+      },
+      git: { created_files: ["a.json"], modified_files: [] },
+    }
+
+    await eslint(defaultConfig, [".json"])
+
+    expect(global.fail).toHaveBeenCalledTimes(2)
+    expect(global.fail).toHaveBeenLastCalledWith("a.json line 2 – 'console' is not defined. (no-undef)", "a.json", 2)
+  })
 })
