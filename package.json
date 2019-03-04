@@ -46,6 +46,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "danger": "*",
     "esdoc": "^1.1.0",
+    "eslint": "^5.15.0",
     "husky": "^0.13.3",
     "jest": "^20.0.1",
     "lint-staged": "^3.4.1",
@@ -85,7 +86,7 @@
       "<rootDir>/node_modules/"
     ]
   },
-  "dependencies": {
-    "eslint": "^5.15.0"
+  "peerDependencies": {
+    "eslint": "*"
   }
 }
