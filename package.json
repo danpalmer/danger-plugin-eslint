@@ -86,6 +86,6 @@
     ]
   },
   "dependencies": {
-    "eslint": "^4.12.1"
+    "eslint": "^5.15.0"
   }
 }
