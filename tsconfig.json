@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es6",
         "module": "commonjs",
         "rootDir": "src",
         "outDir": "dist",
         "allowJs": false,
         "pretty": true,
-        "strictNullChecks": true,
-        "declaration": true
+        "esModuleInterop": true,
+        "moduleResolution": "node"
     },
     "lib":["es2017"],
     "include": [
