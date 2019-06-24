@@ -8,8 +8,9 @@ const mockFileContents = (contents: string) => {
 }
 
 const defaultConfig = {
-  envs: ["browser"],
-  useEslintrc: false,
+  env: {
+    browser: true,
+  },
   extends: "eslint:recommended",
 }
 
@@ -69,7 +70,12 @@ describe("eslint()", () => {
       git: { created_files: ["foo.js"], modified_files: [] },
     }
 
-    await eslint(defaultConfig)
+    await eslint({
+      rules: {
+        "no-console": 2,
+        "no-undef": 2,
+      },
+    })
 
     expect(global.fail).toHaveBeenCalledTimes(2)
     expect(global.fail).toHaveBeenLastCalledWith("foo.js line 2 – 'console' is not defined. (no-undef)", "foo.js", 2)
@@ -133,7 +139,15 @@ describe("eslint()", () => {
       git: { created_files: ["a.json"], modified_files: [] },
     }
 
-    await eslint(defaultConfig, [".json"])
+    await eslint(
+      {
+        rules: {
+          "no-console": 2,
+          "no-undef": 2,
+        },
+      },
+      [".json"]
+    )
 
     expect(global.fail).toHaveBeenCalledTimes(2)
     expect(global.fail).toHaveBeenLastCalledWith("a.json line 2 – 'console' is not defined. (no-undef)", "a.json", 2)
