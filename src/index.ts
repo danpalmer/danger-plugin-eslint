@@ -16,7 +16,7 @@ interface Options {
 /**
  * Eslint your code with Danger
  */
-export default async function eslint(config: any, extensions?: string[]) {
+export default async function eslint(config: any, extensions: string[] = [".js"]) {
   const allFiles = danger.git.created_files.concat(danger.git.modified_files)
   const options: Options = { baseConfig: config }
   if (extensions) {
@@ -25,7 +25,7 @@ export default async function eslint(config: any, extensions?: string[]) {
   const cli = new CLIEngine(options)
   // let eslint filter down to non-ignored, matching the extensions expected
   const filesToLint = allFiles.filter(f => {
-    return !cli.isPathIgnored(f) && cli.options.extensions.some(ext => f.endsWith(ext))
+    return !cli.isPathIgnored(f) && options.extensions.some(ext => f.endsWith(ext))
   })
   return Promise.all(filesToLint.map(f => lintFile(cli, config, f)))
 }
