@@ -18,6 +18,9 @@ interface Options {
  */
 export default async function eslint(config: any, extensions: string[] = [".js"]) {
   const allFiles = danger.git.created_files.concat(danger.git.modified_files)
+  if (typeof config === "string") {
+    config = JSON.parse(config)
+  }
   const options: Options = { baseConfig: config }
   if (extensions) {
     options.extensions = extensions

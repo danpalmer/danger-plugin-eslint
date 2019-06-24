@@ -152,4 +152,15 @@ describe("eslint()", () => {
     expect(global.fail).toHaveBeenCalledTimes(2)
     expect(global.fail).toHaveBeenLastCalledWith("a.json line 2 – 'console' is not defined. (no-undef)", "a.json", 2)
   })
+
+  it("should convert a eslint config passed in as a string to an object", async () => {
+    global.danger = {
+      github: { pr: { title: "Test" } },
+      git: { created_files: [], modified_files: [] },
+    }
+
+    await eslint(JSON.stringify(defaultConfig))
+
+    expect(global.fail).not.toHaveBeenCalled()
+  })
 })
