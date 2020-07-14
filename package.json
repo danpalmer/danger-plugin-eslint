@@ -77,7 +77,7 @@
       "json"
     ],
     "transform": {
-      ".(ts|tsx|js|json)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".(ts|tsx|js|json)": "ts-jest"
     },
     "testRegex": "(.test)\\.(ts|tsx)$",
     "testPathIgnorePatterns": [
