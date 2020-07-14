@@ -63,7 +63,7 @@ describe("eslint()", () => {
             `
           var foo = 1 + 1;
           console.log(foo);
-        `.trim()
+        `.trim(),
           ),
         },
       },
@@ -132,7 +132,7 @@ describe("eslint()", () => {
             `
           var foo = 1 + 1;
           console.log(foo);
-        `.trim()
+        `.trim(),
           ),
         },
       },
@@ -146,7 +146,7 @@ describe("eslint()", () => {
           "no-undef": 2,
         },
       },
-      [".json"]
+      [".json"],
     )
 
     expect(global.fail).toHaveBeenCalledTimes(2)
