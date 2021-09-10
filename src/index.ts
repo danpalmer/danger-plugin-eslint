@@ -18,7 +18,8 @@ export default async function eslint(config: any) {
 }
 
 async function lintFile(linter, config, path) {
-  const contents = await danger.github.utils.fileContents(path)
+  const service = danger.github ? danger.github : danger.gitlab
+  const contents = await service.utils.fileContents(path)
   const report = linter.executeOnText(contents, path)
 
   report.results[0].messages.map(msg => {
